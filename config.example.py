@@ -1,0 +1,3 @@
+API_KEY = "sk-your-api-key-here"
+BASE_URL = "https://api.deepseek.com/anthropic"
+MODEL = "deepseek-v4-pro"
