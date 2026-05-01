@@ -1,0 +1,86 @@
+[
+  {
+    "path": "backend/requirements.txt",
+    "type": "config",
+    "desc": "Python 依赖清单：fastapi、uvicorn、sqlalchemy、pydantic",
+    "depends_on": []
+  },
+  {
+    "path": "backend/models.py",
+    "type": "backend",
+    "desc": "Pydantic 模型定义：TodoBase、TodoCreate、TodoUpdate、TodoResponse、TodoListResponse；SQLAlchemy ORM 模型：Todo",
+    "depends_on": []
+  },
+  {
+    "path": "backend/database.py",
+    "type": "backend",
+    "desc": "SQLite 数据库连接配置：engine、SessionLocal、Base，以及 init_db() 建表函数",
+    "depends_on": ["backend/models.py"]
+  },
+  {
+    "path": "backend/crud.py",
+    "type": "backend",
+    "desc": "数据库 CRUD 操作函数：get_todos、get_todo_by_id、create_todo、update_todo、delete_todo",
+    "depends_on": ["backend/models.py", "backend/database.py"]
+  },
+  {
+    "path": "backend/main.py",
+    "type": "backend",
+    "desc": "FastAPI 应用入口：创建 app、配置 CORS、注册路由、启动时自动初始化数据库、包含所有 API 端点实现",
+    "depends_on": ["backend/models.py", "backend/database.py", "backend/crud.py"]
+  },
+  {
+    "path": "frontend/package.json",
+    "type": "config",
+    "desc": "Node.js 项目配置：声明 vue、vite、@vitejs/plugin-vue 依赖及 scripts（dev、build、preview）",
+    "depends_on": []
+  },
+  {
+    "path": "frontend/vite.config.js",
+    "type": "config",
+    "desc": "Vite 构建配置：Vue 插件注册、开发服务器端口 5173、API 代理到 localhost:8000",
+    "depends_on": []
+  },
+  {
+    "path": "frontend/index.html",
+    "type": "frontend",
+    "desc": "SPA 入口 HTML：挂载点 #app、加载 /src/main.js",
+    "depends_on": ["frontend/src/main.js"]
+  },
+  {
+    "path": "frontend/src/main.js",
+    "type": "frontend",
+    "desc": "Vue3 应用引导：createApp、挂载 App.vue 到 #app",
+    "depends_on": ["frontend/src/App.vue"]
+  },
+  {
+    "path": "frontend/src/App.vue",
+    "type": "frontend",
+    "desc": "根组件：应用标题、全局布局容器、组合 TodoList 组件",
+    "depends_on": ["frontend/src/components/TodoList.vue"]
+  },
+  {
+    "path": "frontend/src/api/todos.js",
+    "type": "frontend",
+    "desc": "API 客户端模块：封装所有 fetch 请求（fetchTodos、fetchTodo、createTodo、updateTodo、deleteTodo），统一 BASE_URL 和错误处理",
+    "depends_on": []
+  },
+  {
+    "path": "frontend/src/components/TodoList.vue",
+    "type": "frontend",
+    "desc": "Todo 列表主组件：状态管理（todos 数组）、生命周期钩子加载数据、组合 TodoForm 和 TodoItem、处理增删改查事件",
+    "depends_on": ["frontend/src/components/TodoItem.vue", "frontend/src/components/TodoForm.vue", "frontend/src/api/todos.js"]
+  },
+  {
+    "path": "frontend/src/components/TodoItem.vue",
+    "type": "frontend",
+    "desc": "单个 Todo 展示组件：显示标题/描述/完成状态、切换完成按钮、删除按钮、编辑按钮（触发 emit 事件）",
+    "depends_on": ["frontend/src/api/todos.js"]
+  },
+  {
+    "path": "frontend/src/components/TodoForm.vue",
+    "type": "frontend",
+    "desc": "Todo 表单组件：新增/编辑表单、双向绑定标题和描述、提交按钮、取消按钮（emit 事件给父组件）",
+    "depends_on": ["frontend/src/api/todos.js"]
+  }
+]

@@ -4,3 +4,6 @@ __pycache__/
 hello.txt
 result.txt
 .idea/
+09_fullstack_agent/project_db/state.json
+09_fullstack_agent/workspace/
+node_modules/
